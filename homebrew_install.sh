@@ -33,6 +33,7 @@ formulas=(
   python3
   lua
   go
+  hugo
   "vim --with-lua"
   mysql
   postgresql
@@ -55,6 +56,8 @@ brew tap homebrew/versions
 brew tap homebrew/homebrew-php
 brew tap homebrew/apache
 brew tap sanemat/font
+brew tap caskroom/cask
+brew tap caskroom/versions
 
 echo "start brew install apps..."
 for formula in "${formulas[@]}"; do
