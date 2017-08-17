@@ -82,6 +82,7 @@ casks=(
     alfred
     iterm2
     libreoffice
+    macvim
     kindle
     cyberduck
     vlc
