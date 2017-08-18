@@ -34,6 +34,7 @@ formulas=(
   python3
   lua
   go
+  ghq
   hugo
   "vim --with-lua"
   mysql

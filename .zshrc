@@ -1,21 +1,54 @@
+
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+# Customize to your needs...
+
+
+
+
+# [PATH]
+export GOPATH=$HOME
+export GOROOT=$HOME
+
+# todoist
+source "$GOPATH/src/github.com/sachaos/todoist/todoist_functions.sh"
+
+
 # zsh 起動時にtmuxを起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
-
 
 # alias関係
 setopt complete_aliases
 alias ls="ls -G -w"
+alias ll="ls -al -G -w"
 alias tree="tree -C -I '.git'"
+
 # autocomplet系
-autoload -U compinit
-compinit
+# autoload -Uz compinit
+# compinit
 
-autoload predict-on
-predict-on
+#autoload -U  predict-on
+#zle -N predict-on
+#zle -N predict-off
+#zstyle ':predict' verbose 'yes'
+#predict-on
 
-setopt auto_cd
-setopt auto_pushd
-setopt correct
+#setopt auto_cd
+#setopt auto_pushd
+# setopt correct
+#unsetopt correct
+# unsetopt correctall
+# DISABLE_CORRECTION="true"
+
 setopt nolistbeep
 setopt noautoremoveslash
 
@@ -27,3 +60,11 @@ setopt hist_ignore_dups
 setopt share_history
 
 
+#
+#autoload -U colors; colors
+#setopt correct
+#setopt re_match_pcre
+#setopt prompt_subst
+
+
+PROMPT="λ "
