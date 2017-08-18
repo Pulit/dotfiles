@@ -23,6 +23,7 @@ formulas=(
   colordiff
   "--without-etcdir zsh"
   zsh-completions
+  tmux
   "--with-cocoa --srgb emacs"
   cask
   ansible
@@ -69,6 +70,7 @@ casks=(
     airmail-beta
     clipy
     coteditor
+    docker
     dropbox
     evernote
     skitch
