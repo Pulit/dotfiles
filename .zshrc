@@ -19,10 +19,6 @@ fi
 export GOPATH=$HOME
 export GOROOT=$HOME
 
-# todoist
-source "$GOPATH/src/github.com/sachaos/todoist/todoist_functions.sh"
-
-
 # zsh 起動時にtmuxを起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
 
