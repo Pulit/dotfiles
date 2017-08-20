@@ -14,6 +14,7 @@ echo "ok. run brew update..."
 brew upgrade --all
 
 formulas=(
+  fzf
   git
   wget
   curl
