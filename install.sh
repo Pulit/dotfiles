@@ -1,4 +1,4 @@
-TPATH=$HOME/dotfiles
+DOTPATH=$HOME/dotfiles
 
 echo "\$DOTPATH : $DOTPATH"
 echo "Created dotfile symbolic links."
