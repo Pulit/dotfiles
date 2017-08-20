@@ -19,12 +19,6 @@ set shiftwidth=2 " smartindentで増減する幅
 set t_Co=256
 syntax enable
 
-" 括弧補完
-imap [ []<left>
-imap ( ()<left>
-imap { {}<left>
-
-
 " backspace を有効にする
 set backspace=indent,eol,start
 
@@ -43,7 +37,7 @@ nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
 " set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
-" set cursorcolumn 
+" set cursorcolumn
 set virtualedit=onemore
 set smartindent
 
@@ -91,3 +85,118 @@ if &term =~ "xterm"
     inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
 
+if has('vim_starting')
+  " 初回起動時のみruntimepathにNeobundleのパスを指定する
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
+
+  " NeoBundleが未インストールであればgit cloneする
+  if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+    echo "install NeoBundle..."
+    :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+  endif
+endif
+
+call neobundle#begin(expand('~/.vim/bundle'))
+
+" インストールするVimプラグインを以下に記述
+" NeoBundle自身を管理
+
+NeoBundleFetch 'Shugo/neobundle.vim'
+
+
+  " 下部にかっこいいlightlineを表示
+  NeoBundle 'itchyny/lightline.vim'
+
+  set laststatus=2
+  set showmode
+  set showcmd
+  set ruler
+
+  " 空白行を赤く表示
+  NeoBundle 'bronson/vim-trailing-whitespace'
+
+  " インデントの可視化
+  " NeoBundle 'Yggdroot/indentLine'
+
+
+  if has('lua')
+    " コードの自動補完
+    NeoBundle 'Shougo/neocomplete'
+    " NeoBundle 'Shougo/neocomplcache'
+    NeoBundle 'Shougo/neosnippet'
+    NeoBundle 'Shougo/neosnippet-snippets'
+  endif
+
+  if neobundle#is_installed('neocomplete.vim')
+    " Vim起動時にnetcompleteを有効にする
+    let g:neocomplete#enable_at_startup = 1
+
+    " smartcase有効化. 大文字が入力されるまで大文字小文字の区別を無視する
+    let g:neocomplete#enable_smart_case = 1
+
+    " 3文字以上の単語に対して補完を有効にする
+    let g:neocomplete#enable_auto_keyword_length = 3
+
+    " 1文字目の入力から補完のポップアップを表示
+    let g:neocomplete#auto_completion_start_length = 1
+
+    " バックスペースで補完のポップアップを閉じる
+    inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+
+    " エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定
+    imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+
+    " タブキーで補完候補の選択. スニペット内ジャンプもタブキーでジャンプ
+    imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+
+    " Golang の自動補完設定
+    let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
+  endif
+
+
+  " 多機能セレクタ
+  NeoBundle 'ctrlpvim/ctrlp.vim'
+
+  " CtrlPの拡張プラグイン. 関数検索
+  NeoBundle 'tacahiroy/ctrlp-funky'
+
+  " CtrlPの拡張プラグイン. コマンド履歴検索
+  NeoBundle 'suy/vim-ctrlp-commandline'
+
+  let g:ctrlp_match_window = 'order:ttb,min:20,max:20,results:100'
+  let g:ctrlp_show_hiddne = 1
+  let g:ctrlp_types = ['fil']
+  let g:ctrlp_extensions = ['funcky', 'commandline']
+
+  command! CtrlPCommandLine call ctrlp#init(ctrlp#commandline#id())
+
+  let g:ctrlp_funcky_matchtype = 'path'
+
+
+  " Golang関係
+  NeoBundle 'fatih/vim-go'
+  NeoBundle 'vim-jp/vim-go-extra'
+  NeoBundle 'scrooloose/syntastic'
+
+  NeoBundleLazy 'fatih/vim-go' ,{ 'autoload' : { 'filetype' : 'go' } }
+
+  let g:syntastic_mode_map = { 'mode' : 'passive', 'active_files' : ['go']}
+  let g:syntastic_go_checkers = ['go', 'golint']
+
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+
+  autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+  autocmd FileType go :match goErr /\<err\>/
+
+
+
+
+
+  " スクロールが滑らかになる
+  NeoBundle 'yonchu/accelerated-smooth-scroll'
+call neobundle#end()
+
+filetype plugin indent on
+NeoBundleCheck
