@@ -89,6 +89,7 @@ casks=(
     macvim
     kindle
     cyberduck
+    mountain-duck
     vlc
     atom
     virtualbox

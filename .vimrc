@@ -1,4 +1,5 @@
 set encoding=utf-8
+set fenc=utf-8
 scriptencoding utf-8
 
 " 文字コード
@@ -15,9 +16,14 @@ set autoindent " 改行時に前の行のインデントを継続する
 set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
 set shiftwidth=2 " smartindentで増減する幅
 
-
 set t_Co=256
 syntax enable
+
+" 括弧補完
+imap [ []<left>
+imap ( ()<left>
+imap { {}<left>
+
 
 " backspace を有効にする
 set backspace=indent,eol,start
@@ -37,6 +43,15 @@ nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
 " set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
+" set cursorcolumn 
+set virtualedit=onemore
+set smartindent
+
+
+" ステータスライン
+" set laststatus=2
+
+
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj

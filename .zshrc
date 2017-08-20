@@ -1,4 +1,3 @@
-
 #
 # Executes commands at the start of an interactive session.
 #
@@ -18,7 +17,7 @@ fi
 # [PATH]
 export GOPATH=$HOME/
 export PATH=$PATH:$GOPATH/bin
-# export GOROOT=$GOPATH
+export GOROOT=$GOPATH
 
 # zsh 起動時にtmuxを起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
