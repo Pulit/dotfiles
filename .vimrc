@@ -106,11 +106,24 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 
   " 下部にかっこいいlightlineを表示
   NeoBundle 'itchyny/lightline.vim'
-
+  NeoBundle 'itchyny/vim-gitbranch'
+  NeoBundle 'tpope/vim-fugitive'
   set laststatus=2
   set showmode
   set showcmd
   set ruler
+
+  let g:lightline = {
+    \ 'colorscheme' : 'wombat',
+    \ 'active':{
+    \   'left' : [[ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified' ]]
+    \ },
+    \ 'component_function' : {
+    \   'gitbranch' : 'fugitive#head'
+    \},
+    \ }
+
 
   " 空白行を赤く表示
   NeoBundle 'bronson/vim-trailing-whitespace'
@@ -127,32 +140,68 @@ NeoBundleFetch 'Shugo/neobundle.vim'
     NeoBundle 'Shougo/neosnippet-snippets'
   endif
 
-  if neobundle#is_installed('neocomplete.vim')
-    " Vim起動時にnetcompleteを有効にする
+  if neobundle#tap('neocomplete')
+    call neobundle#config({
+      \ 'depends' : ['Shougo/context_filetype.vim', 'ujihisa/neco-look','pocke/neco-gh-issues', 'Shougo/neco-syntax'],
+      \ })
+
+    " 起動時に有効化
     let g:neocomplete#enable_at_startup = 1
 
-    " smartcase有効化. 大文字が入力されるまで大文字小文字の区別を無視する
+    " 大文字が入力されるまで大文字小文字の区別を無視する
     let g:neocomplete#enable_smart_case = 1
 
-    " 3文字以上の単語に対して補完を有効にする
-    let g:neocomplete#enable_auto_keyword_length = 3
+    " _ (アンダースコア)区切りの補完を有効化
+    let g:neocomplete#enable_underbar_completion = 1
+    let g:neocomplete#enable_camel_case_completetion = 1
 
-    " 1文字目の入力から補完のポップアップを表示
-    let g:neocomplete#auto_completion_start_length = 1
+    " ポップアップメニューで表示される候補の数
+    let g:neocomolete#max_list = 20
 
-    " バックスペースで補完のポップアップを閉じる
-    inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
+    " シンタックスをきゃっすする時の最小文字長
+    let g:neocomplete#source#syntax#min_keyword_length = 3
 
-    " エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定
-    imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
+    " 補完を表示する最小文字数
+    let g:neocomplete#auto_completion_start_length = 3
 
-    " タブキーで補完候補の選択. スニペット内ジャンプもタブキーでジャンプ
-    imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+    " preview window を閉じない
+    let g:neocomplete#enable_auto_close_preview = 0
+    " AutoCmd InsertLeave * silent! pclose!
 
-    " Golang の自動補完設定
-    let g:neocomplete#sources#omni#input_patterns.go = '\h\w\.\w*'
+    let g:neocomplete#max_keyword_width = 1000
+
+    if !exists('g:neocomplete#delimiter_patterns')
+      let g:neocomplete#delimiter_patterns = {}
+    endif
+    let g:neocomplete#delimiter_patterns.ruby = ['::']
+
+    if !exists('g:neocomplete#same_filetypes')
+      let g:neocomplete#same_filetypes = {}
+    endif
+    let g:neocomplete#same_filetypes.ruby = 'eruby'
+
+    if !exists('g:neocomplete#force_omni_input_patterns')
+      let g:neocomplete#force_omni_input_patterns = {}
+    endif
+
+    let g:neocomplete#force_omni_input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+    let g:neocomplete#force_omni_input_patterns.typescript = '[^. \t]\.\%(\h\w*\)\?' " Same as JavaScript
+    let g:neocomplete#force_omni_input_patterns.go = '[^. \t]\.\%(\h\w*\)\?'         " Same as JavaScripti
+
+    let s:neco_dicts_dir = $HOME . '/dicts'
+    if isdirectory(s:neco_dicts_dir)
+      let g:neocomplete#source#dictionary#dictionaries = {
+            \ 'ruby' : s:neco_dicts_dir . '/ruby.dict',
+            \ 'javascript' : s:neco_dicts_dir . '/jqueri.dict',
+            \}
+    endif
+
+    let g:neocomplete#data_directory = $HOME . '/.vim/cache/neocomplete'
+
+    " call neocomplete#custom#source('look', 'min_pattern_length', 1)
+
+    call neobundle#untap()
   endif
-
 
   " 多機能セレクタ
   NeoBundle 'ctrlpvim/ctrlp.vim'
@@ -172,6 +221,11 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 
   let g:ctrlp_funcky_matchtype = 'path'
 
+  " 括弧やクォートを補完してくれる
+  NeoBundle 'cohama/lexima.vim'
+
+  " ログファイルなどに色付け
+  NeoBundle 'vim-scripts/AnsiEsc.vim'
 
   " Golang関係
   NeoBundle 'fatih/vim-go'
@@ -192,11 +246,9 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 
 
 
-
-
   " スクロールが滑らかになる
   NeoBundle 'yonchu/accelerated-smooth-scroll'
-call neobundle#end()
+  call neobundle#end()
 
-filetype plugin indent on
-NeoBundleCheck
+  filetype plugin indent on
+  NeoBundleCheck
