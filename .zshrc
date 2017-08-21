@@ -11,6 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 # Customize to your needs...
 
+source "~/.zshfzf"
 
 
 
@@ -64,3 +65,6 @@ setopt share_history
 
 
 PROMPT="λ "
+
+
+

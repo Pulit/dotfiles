@@ -35,7 +35,7 @@ nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
 " カーソル
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
-" set number " 行番号を表示
+set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
 " set cursorcolumn
 set virtualedit=onemore
@@ -248,7 +248,14 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 
   " スクロールが滑らかになる
   NeoBundle 'yonchu/accelerated-smooth-scroll'
-  call neobundle#end()
 
-  filetype plugin indent on
-  NeoBundleCheck
+  " colorscheme
+  " NeoBundle 'idleberg/Hopscotch'
+
+  syntax on
+  colorscheme Hopscotch
+
+call neobundle#end()
+
+filetype plugin indent on
+NeoBundleCheck
