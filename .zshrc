@@ -25,46 +25,56 @@ export PATH=$PATH:$GOPATH/bin
 
 # alias関係
 setopt complete_aliases
-alias ls="ls -G -w"
-alias ll="ls -al -G -w"
-alias tree="tree -C -I '.git'"
 
-# autocomplet系
-# autoload -Uz compinit
-# compinit
+if [ "$(uname)" = 'Darwin' ]; then
 
-#autoload -U  predict-on
-#zle -N predict-on
-#zle -N predict-off
-#zstyle ':predict' verbose 'yes'
-#predict-on
+   alias ls="ls -G -w"
 
-#setopt auto_cd
-#setopt auto_pushd
-# setopt correct
-#unsetopt correct
-# unsetopt correctall
-# DISABLE_CORRECTION="true"
+   alias ll="ls -al -G -w"
 
-setopt nolistbeep
-setopt noautoremoveslash
+   alias tree="tree -C -I '.git'"
+else
 
-# コマンド履歴機能
-HISTFILE=~/.zsh_history
-HISTSIZE=100000
-SAVEHIST=100000
-setopt hist_ignore_dups
-setopt share_history
+   alias ls='ls --color=auto '
+   alias ll='ls --color=auto -al'
+fi
+
+ # autocomplet系
+ # autoload -Uz compinit
+ # compinit
+
+ #autoload -U  predict-on
+ #zle -N predict-on
+ #zle -N predict-off
+ #zstyle ':predict' verbose 'yes'
+ #predict-on
+
+ #setopt auto_cd
+ #setopt auto_pushd
+ # setopt correct
+ #unsetopt correct
+ # unsetopt correctall
+ # DISABLE_CORRECTION="true"
+
+ setopt nolistbeep
+ setopt noautoremoveslash
+
+ # コマンド履歴機能
+ HISTFILE=~/.zsh_history
+ HISTSIZE=100000
+ SAVEHIST=100000
+ setopt hist_ignore_dups
+ setopt share_history
 
 
-#
-#autoload -U colors; colors
-#setopt correct
-#setopt re_match_pcre
-#setopt prompt_subst
+ #
+ #autoload -U colors; colors
+ #setopt correct
+ #setopt re_match_pcre
+ #setopt prompt_subst
 
 
-PROMPT="λ "
+ PROMPT="λ "
 
 
 
