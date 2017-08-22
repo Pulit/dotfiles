@@ -46,7 +46,6 @@ set smartindent
 " set laststatus=2
 
 
-
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
 nnoremap k gk
@@ -69,20 +68,6 @@ if has('mouse')
     else
         set ttymouse=xterm2
     endif
-endif
-
-
-if &term =~ "xterm"
-    let &t_SI .= "\e[?2004h"
-    let &t_EI .= "\e[?2004l"
-    let &pastetoggle = "\e[201~"
-
-    function XTermPasteBegin(ret)
-        set paste
-        return a:ret
-    endfunction
-
-    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
 
 if has('vim_starting')
@@ -131,6 +116,9 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   " インデントの可視化
   " NeoBundle 'Yggdroot/indentLine'
 
+  " Pasteする時のインデントが狂わないようにする
+  NeoBundle 'ConradIrwin/vim-bracketed-paste'
+
 
   if has('lua')
     " コードの自動補完
@@ -178,6 +166,7 @@ NeoBundleFetch 'Shugo/neobundle.vim'
     if !exists('g:neocomplete#same_filetypes')
       let g:neocomplete#same_filetypes = {}
     endif
+
     let g:neocomplete#same_filetypes.ruby = 'eruby'
 
     if !exists('g:neocomplete#force_omni_input_patterns')
@@ -222,7 +211,8 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   let g:ctrlp_funcky_matchtype = 'path'
 
   " 括弧やクォートを補完してくれる
-  NeoBundle 'cohama/lexima.vim'
+  " NeoBundle 'cohama/lexima.vim'
+  NeoBundle 'Townk/vim-autoclose'
 
   " ログファイルなどに色付け
   NeoBundle 'vim-scripts/AnsiEsc.vim'
@@ -245,17 +235,14 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   autocmd FileType go :match goErr /\<err\>/
 
 
-
   " スクロールが滑らかになる
   NeoBundle 'yonchu/accelerated-smooth-scroll'
 
   " colorscheme
-  " NeoBundle 'idleberg/Hopscotch'
-
   syntax on
   colorscheme Hopscotch
 
-call neobundle#end()
+  call neobundle#end()
 
-filetype plugin indent on
-NeoBundleCheck
+  filetype plugin indent on
+  NeoBundleCheck
