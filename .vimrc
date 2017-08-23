@@ -240,7 +240,7 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 
   " colorscheme
   syntax on
-  colorscheme Hopscotch
+  colorscheme hopscotch
 
   call neobundle#end()
 

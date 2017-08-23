@@ -11,7 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 # Customize to your needs...
 
-source ".zsh/fzf.zsh"
+source ~/.zsh/fzf.zsh
 
 
 
