@@ -13,13 +13,6 @@ fi
 
 source ~/.zsh/fzf.zsh
 
-
-
-# [PATH]
-export GOPATH=$HOME/
-export PATH=$PATH:$GOPATH/bin
-# export GOROOT=$GOPATH
-
 # zsh 起動時にtmuxを起動
 [[ -z "$TMUX" && ! -z "$PS1" ]] && exec tmux
 

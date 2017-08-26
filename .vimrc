@@ -211,8 +211,8 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   let g:ctrlp_funcky_matchtype = 'path'
 
   " 括弧やクォートを補完してくれる
-  " NeoBundle 'cohama/lexima.vim'
-  NeoBundle 'Townk/vim-autoclose'
+  NeoBundle 'cohama/lexima.vim'
+  " NeoBundle 'Townk/vim-autoclose'
 
   " ログファイルなどに色付け
   NeoBundle 'vim-scripts/AnsiEsc.vim'
