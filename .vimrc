@@ -42,10 +42,6 @@ set virtualedit=onemore
 set smartindent
 
 
-" ステータスライン
-" set laststatus=2
-
-
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
 nnoremap k gk
@@ -69,6 +65,52 @@ if has('mouse')
         set ttymouse=xterm2
     endif
 endif
+
+" タブ関係の設定
+" Anywhere SID.
+function! s:SID_PREFIX()
+  return matchstr(expand('<sfile>'), '<SNR>\d\+_\zeSID_PREFIX$')
+endfunction
+
+" Set tabline.
+function! s:my_tabline()  "{{{
+  let s = ''
+  for i in range(1, tabpagenr('$'))
+    let bufnrs = tabpagebuflist(i)
+    let bufnr = bufnrs[tabpagewinnr(i) - 1]  " first window, first appears
+    let no = i  " display 0-origin tabpagenr
+    let mod = getbufvar(bufnr, '&modified') ? '!' : ' '
+    let title = fnamemodify(bufname(bufnr), ':t')
+    let title = '[' . title . ']'
+    let s .= '%'.i.'T'
+    let s .= '%#' . (i == tabpagenr() ? 'TabLineSel' : 'TabLine') . '#'
+    let s .= no . ':' . title
+    let s .= mod
+    let s .= '%#TabLineFill# '
+  endfor
+  let s .= '%#TabLineFill#%T%=%#TabLine#'
+  return s
+endfunction "}}}
+let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
+" set showtabline=2 " 常にタブラインを表示
+
+" The prefix key.
+nnoremap  [Tag]   <Nop>
+nmap    t [Tag]
+" Tab jump
+for n in range(1, 9)
+  execute 'nnoremap <silent> [Tag]'.n ':<C-u>tabnext'.n.'<CR>'
+endfor " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
+
+map <silent> [Tag]c :tablast <bar> tabnew<CR>
+" tc 新しいタブを一番右に作る
+map <silent> [Tag]x :tabclose<CR>
+" tx タブを閉じる
+map <silent> [Tag]n :tabnext<CR>
+" tn 次のタブ
+map <silent> [Tag]p :tabprevious<CR>
+
+
 
 if has('vim_starting')
   " 初回起動時のみruntimepathにNeobundleのパスを指定する
@@ -221,7 +263,6 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   NeoBundle 'fatih/vim-go'
   NeoBundle 'vim-jp/vim-go-extra'
   NeoBundle 'scrooloose/syntastic'
-
   NeoBundleLazy 'fatih/vim-go' ,{ 'autoload' : { 'filetype' : 'go' } }
 
   let g:syntastic_mode_map = { 'mode' : 'passive', 'active_files' : ['go']}
@@ -230,9 +271,19 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   let g:go_highlight_functions = 1
   let g:go_highlight_methods = 1
   let g:go_highlight_structs = 1
+  let g:go_highlight_interface = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
 
   autocmd FileType go :highlight goErr cterm=bold ctermfg=214
   autocmd FileType go :match goErr /\<err\>/
+
+  let g:go_fmt_command = "goimports"
+
+
+  " Javascript 関係
+  NeoBundleLazy 'othree/yajs.vim',{'autoload':{'filetypes':['javascript']}}
+  autocmd BufRead,BufNewFile *.es6 setfiletype javascript
 
 
   " スクロールが滑らかになる
