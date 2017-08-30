@@ -75,6 +75,7 @@ casks=(
     docker
     dropbox
     evernote
+    gyazo
     skitch
     bettertouchtool
     google-chrome
@@ -92,6 +93,7 @@ casks=(
     mountain-duck
     vlc
     atom
+    spotify
     virtualbox
     visual-studio-code
     vagrant
