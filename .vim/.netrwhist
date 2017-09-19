@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =3
-let g:netrw_dirhist_1='/Users/nx3/.vim'
-let g:netrw_dirhist_2='/Users/nx3/src/github.com/myaox/echo-examples/chatserver/public'
-let g:netrw_dirhist_3='/Users/nx3/src/github.com/myaox/reaction-monster/app'
+let g:netrw_dirhist_1='/Users/nx3/src/github.com/myaox/reaction-monster/dev'
+let g:netrw_dirhist_2='/Users/nx3/src/github.com/myaox/reaction-monster/app'
+let g:netrw_dirhist_3='/Users/nx3/src/github.com/myaox/reaction-monster/dev'
