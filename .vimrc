@@ -14,13 +14,16 @@ set tabstop=2" "画面上でタブ文字が占める幅
 set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 " set autoindent " 改行時に前の行のインデントを継続する
 " set smartindent " 改行時に前の行の構文をチェックし次の行のインデントを増減する
-set shiftwidth=2 " smartindentで増減する幅
+" set shiftwidth=2 " smartindentで増減する幅
 
 set t_Co=256
 syntax enable
 
 " backspace を有効にする
 set backspace=indent,eol,start
+
+" クリップボードを有効化
+set clipboard=unnamed,autoselect
 
 
 " 文字列検索
@@ -97,6 +100,7 @@ let &tabline = '%!'. s:SID_PREFIX() . 'my_tabline()'
 " The prefix key.
 nnoremap  [Tag]   <Nop>
 nmap    t [Tag]
+
 " Tab jump
 for n in range(1, 9)
   execute 'nnoremap <silent> [Tag]'.n ':<C-u>tabnext'.n.'<CR>'
@@ -253,7 +257,7 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   let g:ctrlp_funcky_matchtype = 'path'
 
   " 括弧やクォートを補完してくれる
-  NeoBundle 'cohama/lexima.vim'
+   NeoBundle 'cohama/lexima.vim'
   " NeoBundle 'Townk/vim-autoclose'
 
   " ログファイルなどに色付け
@@ -284,6 +288,9 @@ NeoBundleFetch 'Shugo/neobundle.vim'
   " Javascript 関係
   NeoBundleLazy 'othree/yajs.vim',{'autoload':{'filetypes':['javascript']}}
   autocmd BufRead,BufNewFile *.es6 setfiletype javascript
+
+  " Python3 関係
+  NeoBundle 'davidhalter/jedi-vim'
 
 
   " スクロールが滑らかになる
