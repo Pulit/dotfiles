@@ -1,6 +1,5 @@
 [user]
-	name = myaox
-  emal = llgoodrr@gmail.com
+	name = yutaro
 	email = llgoodrr@gmail.com
 
 [color]
@@ -18,3 +17,5 @@
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
+[core]
+	excludesfile = /Users/nx3/.gitignore_global

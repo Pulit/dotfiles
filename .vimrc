@@ -35,6 +35,8 @@ set hlsearch " 検索結果をハイライト
 " ESCキー2度押しでハイライトの切り替え
 nnoremap <silent><Esc><Esc> :<C-u>set nohlsearch!<CR>
 
+" swpファイルを作らない
+set noswapfile
 
 " カーソル
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる
@@ -291,6 +293,13 @@ NeoBundleFetch 'Shugo/neobundle.vim'
 
   " Python3 関係
   NeoBundle 'davidhalter/jedi-vim'
+
+  " Elixir 関係
+  NeoBundle 'elixir-editors/vim-elixir'
+  " NeoBundle 'elixir-lang/vim-elixir'
+  au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+  au BufRead,BufNewFile *.eex set filetype=eelixir
+
 
 
   " スクロールが滑らかになる
