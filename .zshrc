@@ -40,3 +40,6 @@ PROMPT="λ "
 
 
 
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/nx3/.sdkman"
+[[ -s "/Users/nx3/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/nx3/.sdkman/bin/sdkman-init.sh"
